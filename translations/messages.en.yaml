@@ -1,0 +1,9 @@
+synolia_sylius_admin_notification:
+    ui:
+        notifications: 'Notifications'
+        admin:
+            subheader: 'All notifications'
+            view: 'Notification #%id%'
+        level_name: 'Level Name'
+        context: 'Context'
+        message: 'Message'

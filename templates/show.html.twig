@@ -1,0 +1,49 @@
+{% extends '@SyliusAdmin/layout.html.twig' %}
+
+{% import '@SyliusUi/Macro/headers.html.twig' as headers %}
+
+{% block title %}{{ 'synolia_sylius_admin_notification.ui.admin.view'|trans({'%id%': resource.id}) }} - {{ parent() }}{% endblock title %}
+
+{% block content %}
+    {{ headers.default(
+        'synolia_sylius_admin_notification.ui.notifications'|trans,
+        'cogs',
+        'synolia_sylius_admin_notification.ui.admin.view'|trans({'%id%': resource.id})
+    ) }}
+
+    <div class="ui one column stackable grid segment">
+        <table class="ui very basic table">
+            <tbody>
+                <tr>
+                    <th>{{ 'sylius.ui.id'|trans }}</th>
+                    <td>{{ resource.id }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'sylius.ui.channel'|trans }}</th>
+                    <td>{{ resource.channel }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'synolia_sylius_admin_notification.ui.level_name'|trans }}</th>
+                    <td>{{ resource.levelName }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'synolia_sylius_admin_notification.ui.message'|trans }}</th>
+                    <td>{{ resource.message }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% if resource.context is not null
+        and (resource.context.content is defined and resource.context.content != '')
+        or (resource.context.html is defined and resource.context.html != '')
+    %}
+        <h1>{{ 'synolia_sylius_admin_notification.ui.context'|trans }}</h1>
+        <div class="ui one column stackable segment">
+            {% if resource.context.html is defined %}
+                {{ resource.context.html|raw }}
+            {% else %}
+            <pre>{{ resource.context|serialize }}</pre>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}
