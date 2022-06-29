@@ -9,7 +9,7 @@ use Monolog\Formatter\HtmlFormatter;
 use Monolog\Handler\AbstractProcessingHandler;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
-use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Component\Cache\CacheItem;
 use Synolia\SyliusAdminNotificationPlugin\Entity\AdminNotificationInterface;
 
 final class AdminNotificationHandler extends AbstractProcessingHandler
@@ -22,7 +22,7 @@ final class AdminNotificationHandler extends AbstractProcessingHandler
 
     private FactoryInterface $notificationFactory;
 
-    private CacheInterface $cache;
+    private ArrayAdapter $cache;
 
     private HtmlFormatter $htmlFormatter;
 
@@ -49,7 +49,7 @@ final class AdminNotificationHandler extends AbstractProcessingHandler
         $this->flushCache($cachedNotifications);
     }
 
-    private function cacheValue(array $record)
+    private function cacheValue(array $record): CacheItem
     {
         $cachedNotifications = $this->cache->getItem(self::CACHE_KEY);
 
@@ -68,17 +68,12 @@ final class AdminNotificationHandler extends AbstractProcessingHandler
         return $cachedNotifications;
     }
 
-    /**
-     * @param mixed $cachedNotifications
-     *
-     * @throws \Psr\Cache\InvalidArgumentException
-     */
-    private function flushCache($cachedNotifications): void
+    private function flushCache(CacheItem $cachedNotifications): void
     {
         /** @var array $cachedValue */
         $cachedValue = $cachedNotifications->get();
 
-        //OR check last update
+        // OR check last update
         if (\count($cachedValue) < self::MAX_VALUE) {
             return;
         }

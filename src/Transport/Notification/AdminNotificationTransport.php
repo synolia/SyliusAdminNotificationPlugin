@@ -6,11 +6,13 @@ namespace Synolia\SyliusAdminNotificationPlugin\Transport\Notification;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
+use Symfony\Component\Notifier\Message\ChatMessage;
 use Symfony\Component\Notifier\Message\MessageInterface;
 use Symfony\Component\Notifier\Message\SentMessage;
 use Symfony\Component\Notifier\Recipient\NoRecipient;
 use Symfony\Component\Notifier\Transport\TransportInterface;
 use Synolia\SyliusAdminNotificationPlugin\Entity\AdminNotificationInterface;
+use Webmozart\Assert\Assert;
 
 final class AdminNotificationTransport implements TransportInterface
 {
@@ -43,17 +45,20 @@ final class AdminNotificationTransport implements TransportInterface
 
     private function doSend(MessageInterface $message): SentMessage
     {
-        $message->getSubject();
+        Assert::isInstanceOf($message, ChatMessage::class);
+
+        $notification = $message->getNotification();
+        Assert::notNull($notification);
 
         /** @var AdminNotificationInterface $adminNotification */
         $adminNotification = $this->notificationFactory->createNew();
         $adminNotification->setCreatedAt(new \DateTime());
         $adminNotification
-            ->setLevelName($message->getNotification()->getImportance())
-            ->setChannel(implode(',', $message->getNotification()->getChannels(new NoRecipient())))
+            ->setLevelName($notification->getImportance())
+            ->setChannel(implode(',', $notification->getChannels(new NoRecipient())))
             ->setMessage($message->getSubject())
             ->setContext([
-                'content' => $message->getNotification()->getContent(),
+                'content' => $notification->getContent(),
             ])
         ;
 

@@ -24,9 +24,7 @@ final class AdminNotificationTransportFactory implements TransportFactoryInterfa
     }
 
     /**
-     * In our example, we don't have to pass credentials
-     * check https://github.com/symfony/linked-in-notifier/blob/5.3/LinkedInTransportFactory.php#L24
-     * if you need to parse the DSN.
+     * {@inheritDoc}
      */
     public function create(Dsn $dsn): TransportInterface
     {
@@ -35,11 +33,6 @@ final class AdminNotificationTransportFactory implements TransportFactoryInterfa
 
     public function supports(Dsn $dsn): bool
     {
-        return \in_array($dsn->getScheme(), $this->getSupportedSchemes());
-    }
-
-    private function getSupportedSchemes(): array
-    {
-        return ['adminnotification'];
+        return 'adminnotification' === $dsn->getScheme();
     }
 }

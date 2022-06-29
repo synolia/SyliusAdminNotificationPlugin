@@ -34,7 +34,10 @@ final class SynoliaSyliusAdminNotificationExtension extends AbstractResourceExte
     public function prepend(ContainerBuilder $container): void
     {
         $container->setParameter('synolia_sylius_admin_notification.model.admin_notification.class', AdminNotification::class);
+
+        /** @var iterable $config */
         $config = Yaml::parseFile(\dirname(__DIR__, 2) . '/config/packages/app.yaml');
+
         foreach ($config as $packageName => $packageConfig) {
             $container->prependExtensionConfig($packageName, $packageConfig);
         }
