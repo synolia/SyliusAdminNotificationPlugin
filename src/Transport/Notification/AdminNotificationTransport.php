@@ -66,12 +66,6 @@ final class AdminNotificationTransport implements TransportInterface
         $this->entityManager->flush();
 
         // Create an instance of SentMessage that should be returned to respect the contract.
-        $sentMessage = new SentMessage($message, (string) $this);
-
-        // Suppose the API returns the id of the transaction.
-        $sentMessage->setMessageId('1');
-
-        // 💡 for your information this object will be passed to an event.
-        return $sentMessage;
+        return new SentMessage($message, (string) $this);
     }
 }
