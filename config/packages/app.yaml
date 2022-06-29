@@ -9,7 +9,7 @@ sylius_ui:
 framework:
     notifier:
         chatter_transports:
-            admin_notification: 'adminnotification://TOKEN@default?channel=CHANNEL'
+            admin_notification: 'adminnotification://null'
 
 sylius_grid:
     grids:
