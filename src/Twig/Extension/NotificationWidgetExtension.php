@@ -34,7 +34,7 @@ final class NotificationWidgetExtension extends AbstractExtension
 
     public function renderWidget(Environment $environment): string
     {
-        return $environment->render('@SynoliaSyliusAdminNotificationPlugin/Notifications/_notification.html.twig', [
+        return $environment->render('@SynoliaSyliusAdminNotificationPlugin/Notifications/_notification_widget.html.twig', [
             /** @phpstan-ignore-next-line  */
             'count' => $this->notificationRepository->count([]),
             'resources' => $this->notificationRepository->findBy([], ['createdAt' => 'DESC'], 5),
