@@ -3,7 +3,7 @@
     "type": "sylius-plugin",
     "keywords": ["sylius", "sylius-plugin", "notification"],
     "description": "Admin notifications for Sylius.",
-    "license": "MIT",
+    "license": "EUPL-1.2",
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
