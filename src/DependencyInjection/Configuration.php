@@ -15,9 +15,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Synolia\SyliusAdminNotificationPlugin\Entity\AdminNotification;
 use Synolia\SyliusAdminNotificationPlugin\Entity\AdminNotificationInterface;
 
-/**
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
- */
 final class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
