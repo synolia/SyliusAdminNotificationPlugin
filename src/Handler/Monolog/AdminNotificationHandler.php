@@ -18,7 +18,7 @@ final class AdminNotificationHandler extends AbstractProcessingHandler
 
     private const MAX_VALUE = 1;
 
-    protected EntityManagerInterface $entityManager;
+    private EntityManagerInterface $entityManager;
 
     private FactoryInterface $notificationFactory;
 
@@ -39,9 +39,6 @@ final class AdminNotificationHandler extends AbstractProcessingHandler
         $this->cache = new ArrayAdapter();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     protected function write(array $record): void
     {
         $cachedNotifications = $this->cacheValue($record);
