@@ -1,7 +1,9 @@
 {
     "name": "synolia/sylius-admin-notification-plugin",
     "type": "sylius-plugin",
+    "keywords": ["sylius", "sylius-plugin", "scheduler", "command"],
     "description": "Admin notifications for Sylius.",
+    "license": "MIT",
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
