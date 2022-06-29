@@ -1,6 +1,16 @@
-# SyliusAdminNotificationPlugin
+![Tests](https://github.com/synolia/SyliusAdminNotificationPlugin/workflows/CI/badge.svg?branch=master)
 
-## Notifications
+<p align="center">
+    <a href="https://sylius.com" target="_blank">
+        <img src="https://demo.sylius.com/assets/shop/img/logo.png" />
+    </a>
+</p>
+
+<h1 align="center">Admin Notification Plugin</h1>
+<p align="center">Add custom notification messages in your Sylius admin panel.</p>
+
+
+## How to create a notification
 
 ### Send notification using Symfony notifier
 ```php
@@ -71,4 +81,32 @@ final class SendTestNotification
         ]);
     }
 }
+```
+
+### Write logs as notification
+
+```yaml
+monolog:
+    handlers:
+        synolia_sylius_admin_notification:
+            level: debug
+            type: service
+            id: Synolia\SyliusAdminNotificationPlugin\Handler\Monolog\AdminNotificationHandler
+        main:
+            type: fingers_crossed
+            action_level: error
+            handler: grouped
+            channels: [ "!deprecation", "!sonata"]
+            excluded_http_codes: [404, 405]
+            buffer_size: 50 # How many messages should be saved? Prevent memory leaks
+        grouped:
+            type: group
+            members: [ nested, deduplicated ]
+        nested:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%.log"
+            level: debug
+        deduplicated:
+            type: deduplication
+            handler: synolia_sylius_admin_notification
 ```
