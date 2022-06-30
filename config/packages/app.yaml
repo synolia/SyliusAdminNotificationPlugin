@@ -55,10 +55,11 @@ sylius_grid:
                     enabled: true
                     default_value: ~
                 levelName:
-                    type: string
-                    label: synolia_sylius_admin_notification.ui.level_name
+                    type: criticality
                     enabled: true
+                    label: sylius.ui.channel
                     default_value: ~
+
                 message:
                     type: string
                     label: synolia_sylius_admin_notification.ui.message
@@ -82,3 +83,6 @@ sylius_grid:
                         enabled: true
                         position: 100
                         options: { }
+    templates:
+        filter:
+            criticality: '@SynoliaSyliusAdminNotificationPlugin/Grid/Filter/criticality.html.twig'

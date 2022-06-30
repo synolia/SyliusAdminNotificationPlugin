@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use Synolia\SyliusAdminNotificationPlugin\Form\Type\Grid\Filter\CriticalityGridFilterType;
+use Synolia\SyliusAdminNotificationPlugin\Grid\Filter\CriticalityGridFilter;
 use Synolia\SyliusAdminNotificationPlugin\Handler\Monolog\AdminNotificationHandler;
 use Synolia\SyliusAdminNotificationPlugin\Menu\AdminMenuListener;
 use Synolia\SyliusAdminNotificationPlugin\Transport\Notification\AdminNotificationTransportFactory;
@@ -29,5 +31,7 @@ return static function (ContainerConfigurator $configurator): void {
                 ->tag('chatter.transport_factory')
             ->set(AdminMenuListener::class)
                 ->tag('kernel.event_listener', ['event' => 'sylius.menu.admin.main', 'method' => 'addAdminMenuItems'])
+            ->set(CriticalityGridFilter::class)
+                ->tag('sylius.grid_filter', ['type' => 'criticality', 'form_type' => CriticalityGridFilterType::class])
     ;
 };
