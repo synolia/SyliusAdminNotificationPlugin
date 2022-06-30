@@ -17,7 +17,7 @@ final class ShowAction extends AbstractController
         $this->notificationRepository = $notificationRepository;
     }
 
-    public function __invoke(int $id): Response
+    public function __invoke(string $id): Response
     {
         $resource = $this->notificationRepository->find($id);
 
