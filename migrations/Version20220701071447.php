@@ -10,17 +10,18 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220505143155 extends AbstractMigration
+final class Version20220701071447 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Added notifications table';
+        return 'Added admin notification table';
     }
 
     public function up(Schema $schema): void
     {
+        // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE synolia_admin_notifications (
-          id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\',
+          id INT AUTO_INCREMENT NOT NULL,
           message VARCHAR(255) NOT NULL,
           channel VARCHAR(255) NOT NULL,
           level_name VARCHAR(255) NOT NULL,
@@ -28,11 +29,12 @@ final class Version20220505143155 extends AbstractMigration
           created_at DATETIME NOT NULL,
           updated_at DATETIME DEFAULT NULL,
           PRIMARY KEY(id)
-        ) DEFAULT CHARACTER SET UTF8 COLLATE `UTF8_unicode_ci` ENGINE = InnoDB');
+        ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
     }
 
     public function down(Schema $schema): void
     {
+        // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('DROP TABLE synolia_admin_notifications');
     }
 }
