@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Synolia\SyliusAdminNotificationPlugin\Entity;
 
+use Ramsey\Uuid\UuidInterface;
 use Sylius\Component\Resource\Model\TimestampableTrait;
 
 class AdminNotification implements AdminNotificationInterface
 {
     use TimestampableTrait;
 
-    protected ?int $id = null;
+    protected ?UuidInterface $id = null;
 
     protected string $channel = '';
 
@@ -20,7 +21,7 @@ class AdminNotification implements AdminNotificationInterface
 
     protected array $context = [];
 
-    public function getId(): ?int
+    public function getId(): ?UuidInterface
     {
         return $this->id;
     }

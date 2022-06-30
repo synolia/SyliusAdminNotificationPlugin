@@ -20,7 +20,7 @@ final class Version20220505143155 extends AbstractMigration
     public function up(Schema $schema): void
     {
         $this->addSql('CREATE TABLE synolia_admin_notifications (
-          id INT AUTO_INCREMENT NOT NULL,
+          id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\',
           message VARCHAR(255) NOT NULL,
           channel VARCHAR(255) NOT NULL,
           level_name VARCHAR(255) NOT NULL,
