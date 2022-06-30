@@ -9,6 +9,27 @@
 <h1 align="center">Admin Notification Plugin</h1>
 <p align="center">Add custom notification messages in your Sylius admin panel.</p>
 
+## Installation
+
+1. Add the bundle and dependencies in your composer.json :
+
+    ```shell
+    composer require synolia/sylius-admin-notification-plugin
+    ```
+
+2. Import routing in your project `config/routes/synolia_sylius_admin_notification.yaml`:
+
+    ```yaml
+    synolia_sylius_admin_notification_plugin:
+        resource: "@SynoliaSyliusAdminNotificationPlugin/config/routes/admin_routing.yaml"
+        prefix: '%sylius_admin.path_name%'
+    ```
+
+3. Apply plugin migrations to your database:
+
+    ```shell
+    bin/console doctrine:migrations:migrate
+    ```
 
 ## How to create a notification
 

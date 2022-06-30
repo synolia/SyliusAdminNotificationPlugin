@@ -11,23 +11,23 @@ use Synolia\SyliusAdminNotificationPlugin\Transport\Notification\AdminNotificati
 return static function (ContainerConfigurator $configurator): void {
     $configurator
         ->services()
-        ->defaults()
-        ->autowire()
-        ->autoconfigure()
-        ->load('Synolia\SyliusAdminNotificationPlugin\\', '../src')
-        ->exclude([
-            '../src/DependencyInjection',
-            '../src/Entity',
-            '../src/SynoliaSyliusAdminNotificationPlugin.php',
-        ])
-        ->set(AdminNotificationHandler::class, AdminNotificationHandler::class)
-        ->arg('$htmlFormatter', service('monolog.formatter.html'))
-        ->set(AdminNotificationTransportFactory::class)
-        ->parent('notifier.transport_factory.abstract')
-        ->arg('$entityManager', service('doctrine.orm.entity_manager'))
-        ->arg('$notificationFactory', service('synolia_sylius_admin_notification.factory.notification'))
-        ->tag('chatter.transport_factory')
-        ->set(AdminMenuListener::class)
-        ->tag('kernel.event_listener', ['event' => 'sylius.menu.admin.main', 'method' => 'addAdminMenuItems'])
+            ->defaults()
+                ->autowire()
+                ->autoconfigure()
+            ->load('Synolia\SyliusAdminNotificationPlugin\\', '../src')
+            ->exclude([
+                '../src/DependencyInjection',
+                '../src/Entity',
+                '../src/SynoliaSyliusAdminNotificationPlugin.php',
+            ])
+            ->set(AdminNotificationHandler::class, AdminNotificationHandler::class)
+                ->arg('$htmlFormatter', service('monolog.formatter.html'))
+            ->set(AdminNotificationTransportFactory::class)
+                ->parent('notifier.transport_factory.abstract')
+                ->arg('$entityManager', service('doctrine.orm.entity_manager'))
+                ->arg('$notificationFactory', service('synolia_sylius_admin_notification.factory.notification'))
+                ->tag('chatter.transport_factory')
+            ->set(AdminMenuListener::class)
+                ->tag('kernel.event_listener', ['event' => 'sylius.menu.admin.main', 'method' => 'addAdminMenuItems'])
     ;
 };
