@@ -6,9 +6,8 @@
                                       http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <mapped-superclass name="Synolia\SyliusAdminNotificationPlugin\Entity\AdminNotification" table="synolia_admin_notifications">
-        <id name="id" column="id" type="uuid">
-            <generator strategy="CUSTOM"/>
-            <custom-id-generator class="Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator"/>
+        <id name="id" column="id" type="integer">
+            <generator />
         </id>
         <field name="message" column="message" />
         <field name="channel" column="channel" />

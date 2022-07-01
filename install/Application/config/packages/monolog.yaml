@@ -1,0 +1,8 @@
+monolog:
+    channels: [ 'synolia_sylius_admin_notification' ]
+    handlers:
+        synolia_sylius_admin_notification:
+            channels: [synolia_sylius_admin_notification]
+            level: debug
+            type: service
+            id: Synolia\SyliusAdminNotificationPlugin\Handler\Monolog\AdminNotificationHandler
