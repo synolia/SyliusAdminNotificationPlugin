@@ -1,0 +1,19 @@
+synolia_sylius_admin_notification:
+    resource: |
+        alias: synolia_sylius_admin_notification.notification
+        section: admin
+        redirect: index
+        templates: '@SyliusAdmin/Crud'
+        grid: synolia_sylius_admin_notification
+        permission: true
+        except: ['show', 'create', 'update']
+        vars:
+            all:
+                subheader: synolia_sylius_admin_notification.ui.admin.subheader
+            index:
+                icon: balance scale
+    type: sylius.resource
+
+synolia_sylius_admin_notification_admin_notification_show:
+    path: /notifications/{id}/show
+    controller: Synolia\SyliusAdminNotificationPlugin\Controller\ShowAction

@@ -1,0 +1,9 @@
+synolia_sylius_admin_notification:
+    ui:
+        notifications: 'Notifications'
+        admin:
+            subheader: 'Toutes les notifications'
+            view: 'Notification #%id%'
+        level_name: 'Niveau de criticité'
+        context: 'Contexte'
+        message: 'Message'

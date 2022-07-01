@@ -1,0 +1,33 @@
+<div class="ui floated simple dropdown icon item" id="sylius-notification">
+    <i class="{% if count == 0 %}outline{% else %}yellow{% endif %} bell icon"></i>
+    <div class="menu">
+        {% if count == 0 %}
+        <div class="ui message" id="no-notifications">
+            <span>{{ 'sylius.ui.no_new_notifications'|trans }}</span>
+        </div>
+        {% else %}
+            <div class="ui message" id="no-notifications">
+                <span>{{ count }} notification(s)</span>
+            </div>
+            <div class="ui message" id="notifications">
+                <span>Last 5 notifications</span>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Message</th>
+                        <th>Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for notification in resources %}
+                        <tr>
+                            <td>{{ notification.message }}</td>
+                            <td>{{ notification.createdAt|date}}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+</div>

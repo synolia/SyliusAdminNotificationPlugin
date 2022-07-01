@@ -1,0 +1,16 @@
+/vendor/
+**/node_modules/
+**/.*cache
+/composer.lock
+
+/etc/build/*
+!/etc/build/.gitignore
+
+/tests/Application/
+/install/Application/*.local
+
+/behat.yml
+/phpspec.yml
+**/.php-cs-fixer.cache
+
+/.idea

@@ -1,0 +1,10 @@
+parameters:
+    level: max
+    reportUnmatchedIgnoredErrors: false
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+    bootstrapFiles:
+        - ../vendor/autoload.php
+    excludePaths:
+        - '../src/DependencyInjection/Configuration.php'
+        - '../tests'
