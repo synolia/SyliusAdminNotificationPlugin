@@ -52,6 +52,7 @@ final class AdminMenuListener
         return 'bell yellow';
     }
 
+    /** @phpstan-ignore-next-line */
     private function getParentMenu(MenuBuilderEvent $event): ?ItemInterface
     {
         /** @phpstan-ignore-next-line */
@@ -59,6 +60,7 @@ final class AdminMenuListener
             return $event->getMenu()->addChild('administration');
         }
 
+        /** @phpstan-ignore-next-line */
         return $event->getMenu()->getChild('sylius.ui.administration');
     }
 }

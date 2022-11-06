@@ -12,9 +12,9 @@
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
         "sylius/sylius": "^1.9",
-        "symfony/cache": "^5.4",
+        "symfony/cache": "^5.4|^6.0",
         "symfony/monolog-bundle": "^3.0",
-        "symfony/notifier": "^5.4"
+        "symfony/notifier": "^5.4|^6.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "3.9.5",
