@@ -36,9 +36,17 @@ sylius: sylius-standard update-dependencies install-plugin install-sylius
 .PHONY: sylius
 
 sylius-standard:
+ifeq ($(shell [[ $(SYLIUS_VERSION) == *dev ]] && echo true ),true)
+	${COMPOSER_ROOT} create-project sylius/sylius-standard:${SYLIUS_VERSION} ${TEST_DIRECTORY} --no-install --no-scripts
+else
 	${COMPOSER_ROOT} create-project sylius/sylius-standard ${TEST_DIRECTORY} "~${SYLIUS_VERSION}" --no-install --no-scripts
+endif
 	${COMPOSER} config allow-plugins true
+ifeq ($(shell [[ $(SYLIUS_VERSION) == *dev ]] && echo true ),true)
+	${COMPOSER} require sylius/sylius:"${SYLIUS_VERSION}"
+else
 	${COMPOSER} require sylius/sylius:"~${SYLIUS_VERSION}"
+endif
 
 update-dependencies:
 	${COMPOSER} config extra.symfony.require "^${SYMFONY_VERSION}"

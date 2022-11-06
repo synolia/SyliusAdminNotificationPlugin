@@ -101,8 +101,13 @@ jobs:
                 run: 'symfony server:start --port=8080 --dir=public --daemon'
                 id: end-of-setup-sylius
             -
+                name: 'Doctrine Schema Validate - Run'
+                working-directory: ./tests/Application
+                run: 'php bin/console doctrine:schema:validate --skip-sync'
+                if: 'always() && steps.end-of-setup-sylius.outcome == ''success'''
+            -
                 name: 'Run PHPUnit'
-                run: 'make phpunit-configure && make phpunit'
+                run: 'make phpunit'
                 if: 'always() && steps.end-of-setup-sylius.outcome == ''success'''
         services:
             mariadb:
