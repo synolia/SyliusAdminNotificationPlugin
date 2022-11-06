@@ -7,7 +7,19 @@
 </p>
 
 <h1 align="center">Admin Notification Plugin</h1>
-<p align="center">Add custom notification messages in your Sylius admin panel.</p>
+<p align="center">Notification messages in your Sylius admin panel.</p>
+
+## Features
+
+* Add custom notification messages in your Sylius admin panel.
+* Show list of notifications
+
+## Requirements
+
+|        | Version    |
+|:-------|:-----------|
+| PHP    | ^7.4, ^8.0 |
+| Sylius | ^1.9       |
 
 ## Installation
 
@@ -131,3 +143,15 @@ monolog:
             type: deduplication
             handler: synolia_sylius_admin_notification
 ```
+
+## Development
+
+See [How to contribute](CONTRIBUTING.md).
+
+## License
+
+This library is under the EUPL-1.2 license.
+
+## Credits
+
+Developed by [Synolia](https://synolia.com/).
