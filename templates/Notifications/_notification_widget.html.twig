@@ -1,33 +1,38 @@
-<div class="ui floated simple dropdown icon item" id="sylius-notification">
-    <i class="{% if count == 0 %}outline{% else %}yellow{% endif %} bell icon"></i>
-    <div class="menu">
-        {% if count == 0 %}
-        <div class="ui message" id="no-notifications">
-            <span>{{ 'sylius.ui.no_new_notifications'|trans }}</span>
-        </div>
-        {% else %}
-            <div class="ui message" id="no-notifications">
-                <span>{{ count }} notification(s)</span>
-            </div>
-            <div class="ui message" id="notifications">
-                <span>Last 5 notifications</span>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Message</th>
-                        <th>Date</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for notification in resources %}
-                        <tr>
-                            <td>{{ notification.message }}</td>
-                            <td>{{ notification.createdAt|date}}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+<div class="dropdown me-3" id="sylius-notification">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="tabler:bell {% if count > 0 %}text-warning{% endif %}"></i>
+        {% if count > 0 %}
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ count }}
+                <span class="visually-hidden">unread notifications</span>
+            </span>
         {% endif %}
-    </div>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end shadow border-0 py-0" style="min-width: 300px;">
+        <li class="dropdown-header bg-light py-3 border-bottom rounded-top">
+            <h6 class="mb-0">{{ 'synolia_sylius_admin_notification.ui.notifications'|trans }}</h6>
+        </li>
+        {% if count == 0 %}
+            <li class="p-3 text-center text-muted">
+                {{ 'sylius.ui.no_new_notifications'|trans }}
+            </li>
+        {% else %}
+            {% for notification in resources %}
+                <li>
+                    <a class="dropdown-item p-3 border-bottom" href="{{ path('synolia_sylius_admin_notification_admin_notification_show', {'id': notification.id}) }}">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span class="badge bg-secondary small">{{ notification.levelName }}</span>
+                            <small class="text-muted">{{ notification.createdAt|date('d/m H:i') }}</small>
+                        </div>
+                        <div class="text-truncate small">{{ notification.message }}</div>
+                    </a>
+                </li>
+            {% endfor %}
+            <li class="text-center p-2 bg-light rounded-bottom">
+                <a class="small text-decoration-none" href="{{ path('synolia_sylius_admin_notification_admin_notification_index') }}">
+                    {{ 'sylius.ui.view_all'|trans }}
+                </a>
+            </li>
+        {% endif %}
+    </ul>
 </div>

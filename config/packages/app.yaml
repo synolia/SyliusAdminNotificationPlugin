@@ -1,10 +1,3 @@
-sylius_ui:
-    events:
-        sylius.admin.layout.topbar_right:
-            blocks:
-                admin_notifications:
-                    template: '@SynoliaSyliusAdminNotificationPlugin/Notifications/top_bar.html.twig'
-                    priority: 11
 
 framework:
     notifier:
@@ -49,17 +42,21 @@ sylius_grid:
                     sortable: true
                     enabled: false
             filters:
-                channel:
-                    type: string
-                    label: sylius.ui.channel
-                    enabled: true
-                    default_value: ~
                 levelName:
-                    type: criticality
+                    type: select
                     enabled: true
-                    label: sylius.ui.channel
+                    label: synolia_sylius_admin_notification.ui.level_name
+                    form_options:
+                        choices:
+                            synolia_sylius_admin_notification.ui.levels.debug: DEBUG
+                            synolia_sylius_admin_notification.ui.levels.info: INFO
+                            synolia_sylius_admin_notification.ui.levels.notice: NOTICE
+                            synolia_sylius_admin_notification.ui.levels.warning: WARNING
+                            synolia_sylius_admin_notification.ui.levels.error: ERROR
+                            synolia_sylius_admin_notification.ui.levels.critical: CRITICAL
+                            synolia_sylius_admin_notification.ui.levels.alert: ALERT
+                            synolia_sylius_admin_notification.ui.levels.emergency: EMERGENCY
                     default_value: ~
-
                 message:
                     type: string
                     label: synolia_sylius_admin_notification.ui.message
@@ -83,6 +80,3 @@ sylius_grid:
                         enabled: true
                         position: 100
                         options: { }
-    templates:
-        filter:
-            criticality: '@SynoliaSyliusAdminNotificationPlugin/Grid/Filter/criticality.html.twig'

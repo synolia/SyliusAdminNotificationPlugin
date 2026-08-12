@@ -1,0 +1,5 @@
+sylius_twig_hooks:
+    hooks:
+        'synolia.admin.notification.show.content':
+            content:
+                template: '@SynoliaSyliusAdminNotificationPlugin/show.html.twig'
