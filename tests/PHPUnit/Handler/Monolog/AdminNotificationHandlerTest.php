@@ -21,7 +21,7 @@ final class AdminNotificationHandlerTest extends KernelTestCase
 
     protected function setUp(): void
     {
-        static::bootKernel();
+        self::bootKernel();
 
         $this->adminNotificationRepository = self::getContainer()->get('synolia_sylius_admin_notification.repository.notification');
         $this->entityManager = self::getContainer()->get(EntityManagerInterface::class);

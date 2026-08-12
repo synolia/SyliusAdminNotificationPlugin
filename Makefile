@@ -6,9 +6,9 @@ CONSOLE=cd tests/Application && php bin/console -e test
 COMPOSER=cd tests/Application && composer
 YARN=cd tests/Application && yarn
 
-SYLIUS_VERSION=1.12.0
-SYMFONY_VERSION=6.1
-PHP_VERSION=8.1
+SYLIUS_VERSION=2.0.0
+SYMFONY_VERSION=7.4
+PHP_VERSION=8.2
 PLUGIN_NAME=synolia/sylius-admin-notification-plugin
 
 ###

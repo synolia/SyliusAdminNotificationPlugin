@@ -1,0 +1,6 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_admin.common.component.navbar.items':
+            admin_notifications:
+                template: '@SynoliaSyliusAdminNotificationPlugin/Notifications/top_bar.html.twig'
+                priority: 11

@@ -17,7 +17,7 @@ final class AdminNotificationTransportFactory implements TransportFactoryInterfa
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        FactoryInterface $notificationFactory
+        FactoryInterface $notificationFactory,
     ) {
         $this->entityManager = $entityManager;
         $this->notificationFactory = $notificationFactory;

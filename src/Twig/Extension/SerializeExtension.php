@@ -24,10 +24,14 @@ final class SerializeExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * @param array<string, mixed> $object
+     * @param array<string, mixed> $context
+     */
     public function serialize(
         array $object,
         string $format = 'json',
-        array $context = ['json_encode_options' => \JSON_PRETTY_PRINT]
+        array $context = ['json_encode_options' => \JSON_PRETTY_PRINT],
     ): string {
         return $this->serializer->serialize($object, $format, $context);
     }

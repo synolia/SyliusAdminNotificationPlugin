@@ -7,6 +7,7 @@ namespace Synolia\SyliusAdminNotificationPlugin\Handler\Monolog;
 use Doctrine\ORM\EntityManagerInterface;
 use Monolog\Formatter\HtmlFormatter;
 use Monolog\Handler\AbstractProcessingHandler;
+use Monolog\LogRecord;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Cache\CacheItem;
@@ -29,7 +30,7 @@ final class AdminNotificationHandler extends AbstractProcessingHandler
     public function __construct(
         FactoryInterface $notificationFactory,
         EntityManagerInterface $entityManager,
-        HtmlFormatter $htmlFormatter
+        HtmlFormatter $htmlFormatter,
     ) {
         parent::__construct();
         $this->notificationFactory = $notificationFactory;
@@ -39,14 +40,14 @@ final class AdminNotificationHandler extends AbstractProcessingHandler
         $this->cache = new ArrayAdapter();
     }
 
-    protected function write(array $record): void
+    protected function write(LogRecord $record): void
     {
         $cachedNotifications = $this->cacheValue($record);
         $this->cache->save($cachedNotifications);
         $this->flushCache($cachedNotifications);
     }
 
-    private function cacheValue(array $record): CacheItem
+    private function cacheValue(LogRecord $record): CacheItem
     {
         $cachedNotifications = $this->cache->getItem(self::CACHE_KEY);
 
@@ -56,7 +57,7 @@ final class AdminNotificationHandler extends AbstractProcessingHandler
             return $cachedNotifications;
         }
 
-        /** @var array $cachedValues */
+        /** @var array<array-key, LogRecord> $cachedValues */
         $cachedValues = $cachedNotifications->get();
         $cachedValues[] = $record;
 
@@ -67,7 +68,7 @@ final class AdminNotificationHandler extends AbstractProcessingHandler
 
     private function flushCache(CacheItem $cachedNotifications): void
     {
-        /** @var array $cachedValue */
+        /** @var array<array-key, LogRecord> $cachedValue */
         $cachedValue = $cachedNotifications->get();
 
         // OR check last update
@@ -78,11 +79,11 @@ final class AdminNotificationHandler extends AbstractProcessingHandler
         foreach ($cachedValue as $record) {
             /** @var AdminNotificationInterface $adminNotification */
             $adminNotification = $this->notificationFactory->createNew();
-            $adminNotification->setCreatedAt($record['datetime']);
+            $adminNotification->setCreatedAt($record->datetime);
             $adminNotification
-                ->setLevelName($record['level_name'])
-                ->setChannel($record['channel'])
-                ->setMessage($record['message'])
+                ->setLevelName($record->level->getName())
+                ->setChannel($record->channel)
+                ->setMessage($record->message)
                 ->setContext(['html' => $this->htmlFormatter->format($record)])
             ;
 

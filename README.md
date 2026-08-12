@@ -2,7 +2,11 @@
 
 <p align="center">
     <a href="https://sylius.com" target="_blank">
-        <img src="https://demo.sylius.com/assets/shop/img/logo.png" />
+        <picture>
+            <source media="(prefers-color-scheme: dark)" srcset="https://media.sylius.com/sylius-logo-800-dark.png">
+            <source media="(prefers-color-scheme: light)" srcset="https://media.sylius.com/sylius-logo-800.png">
+            <img alt="Sylius Logo." src="https://media.sylius.com/sylius-logo-800.png">
+        </picture>
     </a>
 </p>
 
@@ -16,10 +20,10 @@
 
 ## Requirements
 
-|        | Version    |
-|:-------|:-----------|
-| PHP    | ^7.4, ^8.0 |
-| Sylius | ^1.9       |
+|        | Version |
+|:-------|:--------|
+| PHP    | ^8.2    |
+| Sylius | ^2.0    |
 
 ## Installation
 

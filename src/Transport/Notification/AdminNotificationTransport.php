@@ -22,7 +22,7 @@ final class AdminNotificationTransport implements TransportInterface
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        FactoryInterface $notificationFactory
+        FactoryInterface $notificationFactory,
     ) {
         $this->entityManager = $entityManager;
         $this->notificationFactory = $notificationFactory;
@@ -33,7 +33,7 @@ final class AdminNotificationTransport implements TransportInterface
         return self::TRANSPORT;
     }
 
-    public function send(MessageInterface $message): ?SentMessage
+    public function send(MessageInterface $message): SentMessage
     {
         return $this->doSend($message);
     }

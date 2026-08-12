@@ -19,6 +19,7 @@ final class SynoliaSyliusAdminNotificationExtension extends AbstractResourceExte
 
     public function load(array $configs, ContainerBuilder $container): void
     {
+        /** @var array{driver: string, resources: array<string, mixed>} $config */
         $config = $this->processConfiguration(new Configuration(), $configs);
         $this->registerResources(
             'synolia_sylius_admin_notification',
@@ -35,12 +36,15 @@ final class SynoliaSyliusAdminNotificationExtension extends AbstractResourceExte
     {
         $container->setParameter('synolia_sylius_admin_notification.model.admin_notification.class', AdminNotification::class);
 
-        /** @var iterable $config */
-        $config = Yaml::parseFile(\dirname(__DIR__, 2) . '/config/packages/app.yaml');
+        $configPath = \dirname(__DIR__, 2) . '/config';
+        /** @var array<string, array<string, mixed>> $config */
+        $config = Yaml::parseFile($configPath . '/packages/app.yaml');
 
         foreach ($config as $packageName => $packageConfig) {
             $container->prependExtensionConfig($packageName, $packageConfig);
         }
+
+        $this->prependTwigHooks($container, $configPath . '/twig_hooks');
 
         $this->prependDoctrineMigrations($container);
     }
@@ -55,8 +59,36 @@ final class SynoliaSyliusAdminNotificationExtension extends AbstractResourceExte
         return '@SynoliaSyliusAdminNotificationPlugin/migrations';
     }
 
+    /**
+     * @return array<string>
+     */
     protected function getNamespacesOfMigrationsExecutedBefore(): array
     {
         return [];
+    }
+
+    private function prependTwigHooks(ContainerBuilder $container, string $configPath): void
+    {
+        if (!is_dir($configPath)) {
+            return;
+        }
+
+        $files = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($configPath, \RecursiveDirectoryIterator::SKIP_DOTS),
+            \RecursiveIteratorIterator::LEAVES_ONLY
+        );
+
+        /** @var \SplFileInfo $file */
+        foreach ($files as $file) {
+            if ('yaml' === $file->getExtension()) {
+                /** @var array<string, mixed> $config */
+                $config = Yaml::parseFile($file->getPathname());
+                if (isset($config['sylius_twig_hooks']) && \is_array($config['sylius_twig_hooks'])) {
+                    /** @var array<string, mixed> $hooks */
+                    $hooks = $config['sylius_twig_hooks'];
+                    $container->prependExtensionConfig('sylius_twig_hooks', $hooks);
+                }
+            }
+        }
     }
 }
