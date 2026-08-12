@@ -1,6 +1,7 @@
 synolia_sylius_admin_notification:
     ui:
         notifications: 'Notifications'
+        notification: ' la notification'
         admin:
             subheader: 'Toutes les notifications'
             view: 'Notification #%id%'
@@ -16,3 +17,4 @@ synolia_sylius_admin_notification:
             emergency: 'Urgence'
         context: 'Contexte'
         message: 'Message'
+        view_all: 'Voir toutes les notifications'

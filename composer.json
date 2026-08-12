@@ -12,11 +12,9 @@
         "php": "^8.2",
         "ext-json": "*",
         "sylius/sylius": "^2.0",
-        "symfony/cache": "^6.4 || ^7.3",
+        "symfony/cache": "^6.4 || ^7.3 || ^8.0",
         "symfony/monolog-bundle": "^3.0",
-        "symfony/notifier": "^6.4 || ^7.3",
-        "doctrine/collections": "^2.2",
-        "babdev/pagerfanta-bundle": "^4.4"
+        "symfony/notifier": "^6.4 || ^7.3"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.9",

@@ -1,18 +1,15 @@
 <div class="dropdown me-3" id="sylius-notification">
     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="tabler:bell {% if count > 0 %}text-warning{% endif %}"></i>
-        {% if count > 0 %}
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {{ count }}
-                <span class="visually-hidden">unread notifications</span>
-            </span>
+        {{ ux_icon('material-symbols:info-outline') }}
+        {% if resources|length > 0 %}
+            <span class="badge bg-red" style="transform: translate(-3px, -9px)"></span>
         {% endif %}
     </a>
     <ul class="dropdown-menu dropdown-menu-end shadow border-0 py-0" style="min-width: 300px;">
         <li class="dropdown-header bg-light py-3 border-bottom rounded-top">
             <h6 class="mb-0">{{ 'synolia_sylius_admin_notification.ui.notifications'|trans }}</h6>
         </li>
-        {% if count == 0 %}
+        {% if resources|length == 0 %}
             <li class="p-3 text-center text-muted">
                 {{ 'sylius.ui.no_new_notifications'|trans }}
             </li>
@@ -21,7 +18,7 @@
                 <li>
                     <a class="dropdown-item p-3 border-bottom" href="{{ path('synolia_sylius_admin_notification_admin_notification_show', {'id': notification.id}) }}">
                         <div class="d-flex justify-content-between align-items-center mb-1">
-                            <span class="badge bg-secondary small">{{ notification.levelName }}</span>
+                            <span class="badge small">{{ notification.levelName }}</span>
                             <small class="text-muted">{{ notification.createdAt|date('d/m H:i') }}</small>
                         </div>
                         <div class="text-truncate small">{{ notification.message }}</div>
@@ -30,7 +27,7 @@
             {% endfor %}
             <li class="text-center p-2 bg-light rounded-bottom">
                 <a class="small text-decoration-none" href="{{ path('synolia_sylius_admin_notification_admin_notification_index') }}">
-                    {{ 'sylius.ui.view_all'|trans }}
+                    {{ 'synolia_sylius_admin_notification.ui.view_all'|trans }}
                 </a>
             </li>
         {% endif %}
