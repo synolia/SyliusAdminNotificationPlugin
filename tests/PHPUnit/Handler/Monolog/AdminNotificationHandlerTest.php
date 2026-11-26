@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Synolia\SyliusAdminNotificationPlugin\PHPUnit\Handler\Monolog;
 
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
@@ -45,9 +46,7 @@ final class AdminNotificationHandlerTest extends KernelTestCase
         self::assertEquals(1, $this->adminNotificationRepository->count([]));
     }
 
-    /**
-     * @dataProvider criticalityDataProvider
-     */
+    #[DataProvider('criticalityDataProvider')]
     public function testNotificationHasGoodCriticality(string $criticality): void
     {
         $repository = self::getContainer()->get('synolia_sylius_admin_notification.repository.notification');
@@ -61,7 +60,7 @@ final class AdminNotificationHandlerTest extends KernelTestCase
         self::assertEquals(mb_strtoupper($criticality), $notification->getLevelName());
     }
 
-    public function criticalityDataProvider(): \Generator
+    public static function criticalityDataProvider(): \Generator
     {
         yield [LogLevel::CRITICAL];
         yield [LogLevel::ALERT];

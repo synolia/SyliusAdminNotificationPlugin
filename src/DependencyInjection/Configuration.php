@@ -13,7 +13,6 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Synolia\SyliusAdminNotificationPlugin\Entity\AdminNotification;
-use Synolia\SyliusAdminNotificationPlugin\Entity\AdminNotificationInterface;
 
 final class Configuration implements ConfigurationInterface
 {
@@ -50,7 +49,7 @@ final class Configuration implements ConfigurationInterface
                                     ->addDefaultsIfNotSet()
                                     ->children()
                                         ->scalarNode('model')->defaultValue(AdminNotification::class)->cannotBeEmpty()->end()
-                                        ->scalarNode('interface')->defaultValue(AdminNotificationInterface::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('interface')->cannotBeEmpty()->end()
                                         ->scalarNode('controller')->defaultValue(ResourceController::class)->end()
                                         ->scalarNode('repository')->defaultValue(EntityRepository::class)->end()
                                         ->scalarNode('factory')->defaultValue(Factory::class)->end()

@@ -22,9 +22,11 @@ jobs:
                     - 2.0.0
                     - 2.1.0
                     - 2.2.0
+                    - 2.3.0
                 symfony:
                     - 6.4
                     - 7.4
+                    - '8.1'
                 node:
                     - 24.x
                 exclude:
@@ -34,6 +36,16 @@ jobs:
                       php: "8.5"
                     - sylius: "2.0.0"
                       symfony: "7.4"
+                    - sylius: "2.3.0"
+                      php: "8.2"
+                    - symfony: "8.1"
+                      php: "8.2"
+                    - symfony: "8.1"
+                      sylius: "2.0.0"
+                    - symfony: "8.1"
+                      sylius: "2.1.0"
+                    - symfony: "8.1"
+                      sylius: "2.2.0"
         env:
             APP_ENV: test
             package-name: synolia/sylius-admin-notification-plugin

@@ -24,6 +24,7 @@
 |:-------|:--------|
 | PHP    | ^8.2    |
 | Sylius | ^2.0    |
+| Symfony | ^6.4 \|\| ^7.3 \|\| ^8.0 (Symfony 8 requires Sylius ^2.3) |
 
 ## Installation
 
