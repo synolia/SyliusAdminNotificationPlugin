@@ -1,0 +1,6 @@
+when@test:
+    services:
+        # Keeps the chatter (unused by Sylius itself) so tests can send notifications through it
+        Symfony\Component\Notifier\ChatterInterface:
+            alias: chatter
+            public: true

@@ -17,7 +17,7 @@ final class SerializeExtension extends AbstractExtension
         $this->serializer = $serializer;
     }
 
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('serialize', [$this, 'serialize']),

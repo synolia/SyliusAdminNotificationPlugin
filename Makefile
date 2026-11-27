@@ -3,7 +3,8 @@ SHELL=/bin/bash
 COMPOSER_ROOT=composer
 TEST_DIRECTORY=tests/Application
 CONSOLE=cd tests/Application && php bin/console -e test
-COMPOSER=cd tests/Application && composer
+# Composer scripts (cache:clear) run in dev: a fresh test cache fails to warm up with doctrine-bundle 3
+COMPOSER=cd tests/Application && APP_ENV=dev composer
 YARN=cd tests/Application && yarn
 
 SYLIUS_VERSION=2.0.0
@@ -42,6 +43,8 @@ else
 	${COMPOSER_ROOT} create-project sylius/sylius-standard ${TEST_DIRECTORY} "~${SYLIUS_VERSION}" --no-install --no-scripts
 endif
 	${COMPOSER} config allow-plugins true
+	# Sylius-Standard 2.2 registers FOSRestBundle, which sylius/resource-bundle 1.14 no longer installs
+	if grep -q 'FOS\\RestBundle' ${TEST_DIRECTORY}/config/bundles.php; then ${COMPOSER} require friendsofsymfony/rest-bundle:^3.7 --no-update; fi
 ifeq ($(shell [[ $(SYLIUS_VERSION) == *dev ]] && echo true ),true)
 	${COMPOSER} require sylius/sylius:"${SYLIUS_VERSION}"
 else
@@ -62,7 +65,13 @@ install-plugin:
 	cp -r install/Application tests
 
 install-sylius:
-	${CONSOLE} sylius:install -n -s default
+	# Same steps as sylius:install, without its in-process cache:clear which fails with doctrine-bundle 3
+	${CONSOLE} sylius:install:check-requirements -n
+	${CONSOLE} sylius:install:database -n -s default
+	${CONSOLE} sylius:install:setup -n
+	${CONSOLE} sylius:install:jwt-setup -n
+	${CONSOLE} sylius:payment:generate-key -n
+	${CONSOLE} sylius:install:assets -n
 	${YARN} install
 	${YARN} build
 	${CONSOLE} cache:clear

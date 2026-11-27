@@ -79,7 +79,8 @@ final class AdminNotificationHandler extends AbstractProcessingHandler
         foreach ($cachedValue as $record) {
             /** @var AdminNotificationInterface $adminNotification */
             $adminNotification = $this->notificationFactory->createNew();
-            $adminNotification->setCreatedAt($record->datetime);
+            // The "datetime" Doctrine type only accepts mutable dates since DBAL 4
+            $adminNotification->setCreatedAt(\DateTime::createFromImmutable($record->datetime));
             $adminNotification
                 ->setLevelName($record->level->getName())
                 ->setChannel($record->channel)
