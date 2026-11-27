@@ -19,7 +19,6 @@ jobs:
                     - 8.2
                     - 8.5
                 symfony:
-                    - '6.4.*'
                     - '7.4.*'
                     - '8.1.*'
                 exclude:
@@ -57,7 +56,10 @@ jobs:
                 run: 'composer config -g github-oauth.github.com ${{ github.token }}'
             -
                 name: 'Composer - Restrict Symfony version'
-                run: 'composer config extra.symfony.require "${{ matrix.symfony }}"'
+                run: |
+                    composer global config --no-plugins allow-plugins.symfony/flex true
+                    composer global require --no-progress --no-scripts --no-plugins "symfony/flex:^2.4"
+                    composer config extra.symfony.require "${{ matrix.symfony }}"
             -
                 name: 'Composer - Update dependencies'
                 run: 'composer update --no-progress'

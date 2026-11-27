@@ -3,7 +3,8 @@ SHELL=/bin/bash
 COMPOSER_ROOT=composer
 TEST_DIRECTORY=tests/Application
 CONSOLE=cd tests/Application && php bin/console -e test
-COMPOSER=cd tests/Application && composer
+# Composer scripts (cache:clear) run in dev: a fresh test cache fails to warm up with doctrine-bundle 3
+COMPOSER=cd tests/Application && APP_ENV=dev composer
 YARN=cd tests/Application && yarn
 
 SYLIUS_VERSION=2.0.0
