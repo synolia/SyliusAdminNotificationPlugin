@@ -11,7 +11,7 @@ name: Analysis
 jobs:
     analysis:
         name: 'PHP ${{ matrix.php }} Symfony ${{ matrix.symfony }}'
-        runs-on: ubuntu-20.04
+        runs-on: ubuntu-24.04
         strategy:
             fail-fast: false
             matrix:
@@ -30,7 +30,7 @@ jobs:
             APP_ENV: test
         steps:
             -
-                uses: actions/checkout@v2
+                uses: actions/checkout@v4
             -
                 name: 'Setup PHP'
                 uses: shivammathur/setup-php@v2
@@ -41,10 +41,10 @@ jobs:
             -
                 name: 'Composer - Get Cache Directory'
                 id: composer-cache
-                run: 'echo "::set-output name=dir::$(composer config cache-files-dir)"'
+                run: 'echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"'
             -
                 name: 'Composer - Set cache'
-                uses: actions/cache@v2
+                uses: actions/cache@v4
                 with:
                     path: '${{ steps.composer-cache.outputs.dir }}'
                     key: 'php-${{ matrix.php }}-symfony-${{ matrix.symfony }}-composer-${{ hashFiles(''**/composer.json'') }}'

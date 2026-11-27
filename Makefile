@@ -62,7 +62,13 @@ install-plugin:
 	cp -r install/Application tests
 
 install-sylius:
-	${CONSOLE} sylius:install -n -s default
+	# Same steps as sylius:install, without its in-process cache:clear which fails with doctrine-bundle 3
+	${CONSOLE} sylius:install:check-requirements -n
+	${CONSOLE} sylius:install:database -n -s default
+	${CONSOLE} sylius:install:setup -n
+	${CONSOLE} sylius:install:jwt-setup -n
+	${CONSOLE} sylius:payment:generate-key -n
+	${CONSOLE} sylius:install:assets -n
 	${YARN} install
 	${YARN} build
 	${CONSOLE} cache:clear
