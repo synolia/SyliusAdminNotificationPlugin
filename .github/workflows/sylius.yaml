@@ -103,8 +103,8 @@ jobs:
                 run: 'make phpunit'
                 if: 'always() && steps.end-of-setup-sylius.outcome == ''success'''
         services:
-            mariadb:
-                image: 'mariadb:10.4.11'
+            mysql:
+                image: 'mysql:8.0'
                 ports:
                     - '3306:3306'
                 env:

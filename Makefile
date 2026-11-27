@@ -43,6 +43,8 @@ else
 	${COMPOSER_ROOT} create-project sylius/sylius-standard ${TEST_DIRECTORY} "~${SYLIUS_VERSION}" --no-install --no-scripts
 endif
 	${COMPOSER} config allow-plugins true
+	# Sylius-Standard 2.2 registers FOSRestBundle, which sylius/resource-bundle 1.14 no longer installs
+	if grep -q 'FOS\\RestBundle' ${TEST_DIRECTORY}/config/bundles.php; then ${COMPOSER} require friendsofsymfony/rest-bundle:^3.7 --no-update; fi
 ifeq ($(shell [[ $(SYLIUS_VERSION) == *dev ]] && echo true ),true)
 	${COMPOSER} require sylius/sylius:"${SYLIUS_VERSION}"
 else
