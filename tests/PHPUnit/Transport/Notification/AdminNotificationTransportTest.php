@@ -18,6 +18,7 @@ use Synolia\SyliusAdminNotificationPlugin\Entity\AdminNotificationInterface;
 final class AdminNotificationTransportTest extends KernelTestCase
 {
     private EntityManagerInterface $entityManager;
+
     private RepositoryInterface $adminNotificationRepository;
 
     protected function setUp(): void

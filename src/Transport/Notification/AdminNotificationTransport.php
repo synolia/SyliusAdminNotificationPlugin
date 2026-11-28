@@ -17,7 +17,9 @@ use Webmozart\Assert\Assert;
 final class AdminNotificationTransport implements TransportInterface
 {
     private const TRANSPORT = 'admin_notification';
+
     private EntityManagerInterface $entityManager;
+
     private FactoryInterface $notificationFactory;
 
     public function __construct(

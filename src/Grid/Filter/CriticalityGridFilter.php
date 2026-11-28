@@ -10,7 +10,7 @@ use Sylius\Component\Grid\Filtering\FilterInterface;
 final class CriticalityGridFilter implements FilterInterface
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function apply(DataSourceInterface $dataSource, string $name, $data, array $options = []): void
     {
