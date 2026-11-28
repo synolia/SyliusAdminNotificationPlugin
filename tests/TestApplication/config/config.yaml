@@ -1,0 +1,17 @@
+# The plugin configuration (config/packages/app.yaml, Twig hooks) is prepended by its extension: nothing to import.
+
+monolog:
+    channels: ['synolia_sylius_admin_notification']
+    handlers:
+        synolia_sylius_admin_notification:
+            channels: [synolia_sylius_admin_notification]
+            level: debug
+            type: service
+            id: Synolia\SyliusAdminNotificationPlugin\Handler\Monolog\AdminNotificationHandler
+
+when@test:
+    services:
+        # Keeps the chatter (unused by Sylius itself) so tests can send notifications through it
+        Symfony\Component\Notifier\ChatterInterface:
+            alias: chatter
+            public: true

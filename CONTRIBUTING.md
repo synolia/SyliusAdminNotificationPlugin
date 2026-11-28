@@ -1,15 +1,23 @@
 ## Installation
 
+The plugin is developed and tested against the official [Sylius Test Application](https://github.com/Sylius/TestApplication)
+(`sylius/test-application`), installed as a Composer dev dependency. The plugin-specific configuration
+of the test application lives in `tests/TestApplication/`.
+
+To be able to setup the plugin database, remember to configure your database credentials
+in `tests/TestApplication/.env.local` and `tests/TestApplication/.env.test.local`
+(default: `mysql://root@127.0.0.1/synolia_admin_notification_plugin_%kernel.environment%`).
+
 From the plugin root directory, run the following commands:
 
 ```bash
-$ make install -e SYLIUS_VERSION=XX SYMFONY_VERSION=YY PHP_VERSION=ZZ
+make install    # optionally: make install SYLIUS_VERSION=2.3.0 SYMFONY_VERSION=8.1
+make phpunit
+make serve      # Symfony local web server on the test application
 ```
 
-Default values : XX=1.12.0 and YY=6.1 and ZZ=8.1
-
-To be able to setup the plugin database, remember to configure you database credentials
-in `install/Application/.env.local` and `install/Application/.env.test.local`.
+`make install` installs the Composer dependencies and the frontend assets of the test application,
+then creates the database, runs the migrations and loads the fixtures (`test` environment by default).
 
 To reset test environment:
 ```bash
@@ -36,14 +44,23 @@ $ make reset
 
 ### Opening Sylius with your plugin
 
-- Using `test` environment:
+The console of the test application is available with `vendor/bin/console`:
+
+```bash
+$ vendor/bin/console debug:router -e test
+```
+
+- Using `test` environment (from the plugin root directory):
 
     ```bash
-    $ (cd tests/Application && bin/console server:run -d public -e test)
+    $ make serve
     ```
 
 - Using `dev` environment:
 
     ```bash
-    $ (cd tests/Application && bin/console server:run -d public -e dev)
+    $ APP_ENV=dev symfony server:start -d
     ```
+
+    The `dev` database has to be created first, e.g. `vendor/bin/console doctrine:database:create -e dev`,
+    `vendor/bin/console doctrine:migrations:migrate -n -e dev` and `vendor/bin/console sylius:fixtures:load -n -e dev`.

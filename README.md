@@ -151,6 +151,14 @@ monolog:
 
 ## Development
 
+The plugin is developed and tested with the [Sylius Test Application](https://github.com/Sylius/TestApplication):
+
+```shell
+make install    # optionally: make install SYLIUS_VERSION=2.3.0 SYMFONY_VERSION=8.1
+make phpunit
+make serve      # Symfony local web server on the test application
+```
+
 See [How to contribute](CONTRIBUTING.md).
 
 ## License
