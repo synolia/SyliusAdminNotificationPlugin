@@ -2,35 +2,31 @@ grumphp:
     ascii:
         failed: ~
         succeeded: ~
-    ignore_unstaged_changes: true
     tasks:
         composer:
-            file: "composer.json"
             no_check_all: true
         jsonlint:
             detect_key_conflicts: true
-        phpcs:
-            standard: "ruleset"
-            warning_severity: 0
-            whitelist_patterns:
-                - "src"
-                - "tests"
-        phpcsfixer2:
-            config: 'ruleset/.php-cs-fixer.php'
-            verbose: true
-            diff: true
-            triggered_by: ['php']
         phplint:
-            exclude: ['vendor']
+            exclude: ['vendor', 'var']
             triggered_by: ['php']
-        phpmd:
-            ruleset: ["ruleset/.php_md.xml"]
-            exclude: ["tests/*", "migrations/*", "src/Kernel.php", "*/migrations/*"]
-        phpmnd:
-            directory: "src"
+        phpmd3:
+            ruleset: ['ruleset/.php_md.xml']
         phpstan:
             level: ~
-            configuration: "ruleset/phpstan.neon"
-        xmllint: ~
+            configuration: 'ruleset/phpstan.neon'
+            use_grumphp_paths: false
         yamllint:
             parse_custom_tags: true
+        ecs:
+            config: 'ruleset/ecs.php'
+            no-progress-bar: true
+        phpmnd:
+            directory: src
+        phpcs:
+            standard: 'ruleset'
+            warning_severity: 0
+            whitelist_patterns:
+                - 'src'
+            exclude:
+                - 'PSR12.Files.FileHeader'

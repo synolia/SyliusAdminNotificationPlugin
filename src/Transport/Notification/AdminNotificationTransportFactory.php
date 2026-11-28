@@ -13,6 +13,7 @@ use Symfony\Component\Notifier\Transport\TransportInterface;
 final class AdminNotificationTransportFactory implements TransportFactoryInterface
 {
     private EntityManagerInterface $entityManager;
+
     private FactoryInterface $notificationFactory;
 
     public function __construct(
@@ -24,7 +25,7 @@ final class AdminNotificationTransportFactory implements TransportFactoryInterfa
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function create(Dsn $dsn): TransportInterface
     {

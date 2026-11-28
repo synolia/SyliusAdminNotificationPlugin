@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 final class CriticalityGridFilterType extends AbstractType
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -29,7 +29,7 @@ final class CriticalityGridFilterType extends AbstractType
                     LogLevel::WARNING => LogLevel::WARNING,
                     LogLevel::NOTICE => LogLevel::NOTICE,
                 ],
-            ]
+            ],
         );
     }
 }

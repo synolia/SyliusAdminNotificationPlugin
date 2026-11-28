@@ -25,7 +25,7 @@ final class SynoliaSyliusAdminNotificationExtension extends AbstractResourceExte
             'synolia_sylius_admin_notification',
             $config['driver'],
             $config['resources'],
-            $container
+            $container,
         );
 
         $loader = new PhpFileLoader($container, new FileLocator(\dirname(__DIR__, 2) . '/config'));
@@ -75,7 +75,7 @@ final class SynoliaSyliusAdminNotificationExtension extends AbstractResourceExte
 
         $files = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($configPath, \RecursiveDirectoryIterator::SKIP_DOTS),
-            \RecursiveIteratorIterator::LEAVES_ONLY
+            \RecursiveIteratorIterator::LEAVES_ONLY,
         );
 
         /** @var \SplFileInfo $file */
