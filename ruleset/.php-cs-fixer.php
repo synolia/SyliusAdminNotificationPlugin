@@ -6,6 +6,8 @@ declare(strict_types=1);
 
 return (new \PhpCsFixer\Config())
     ->setUsingCache(true)
+    // Only checks the code style; allows running the CI analysis on PHP versions newer than PHP CS Fixer supports
+    ->setUnsupportedPhpVersionAllowed(true)
     ->setCacheFile('.php-cs-fixer.cache')
     ->setRules([
         '@PhpCsFixer' => true,
